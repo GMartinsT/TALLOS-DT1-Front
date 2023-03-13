@@ -15,7 +15,7 @@
         <td class="tdemail">{{ user.email }}</td>
         <td class="">{{ user.role }}</td>
         <td>
-          <button>Editar</button>
+          <RouterLink :to="`/users/${user._id}`">Editar</RouterLink>
           <button @click="deleteUser(user._id)">Excluir</button>
         </td>
       </tr>
@@ -27,7 +27,7 @@
 import { defineComponent, ref, type Ref } from "vue";
 import axios from "axios";
 
-interface User {
+export interface User {
   _id: string;
   name: string;
   email: string;
