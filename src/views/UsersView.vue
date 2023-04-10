@@ -26,13 +26,9 @@
 <script lang="ts">
 import { defineComponent, ref, type Ref } from "vue";
 import axios from "axios";
+import type User from "@/interface/IUser";
 
-export interface User {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-}
+
 export default defineComponent({
   name: "Users",
   setup() {
