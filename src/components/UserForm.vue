@@ -18,7 +18,10 @@
       </div>
       <div>
         <label for="role">Cargo:</label>
-        <input type="text" v-model="user.role" id="role" />
+        <select name="role" v-model="user.role" id="role">
+          <option value="user" selected>User</option>
+          <option value="admin">Admin</option>
+        </select>
       </div>
       <div>
         <button type="button" @click="salvar">Salvar</button>
@@ -29,7 +32,7 @@
 
 <script lang="ts">
 import axios from "axios";
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import router from "@/router";
 
 export default {
