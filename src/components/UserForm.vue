@@ -56,9 +56,9 @@ export default {
       axios.get(`http://localhost:3000/users/${this.$route.params?.id}`).then(
         (response) => {
           (this.user.name = response.data.name),
-            (this.user.email = response.data.email),
-            (this.user.password = response.data.password),
-            (this.user.role = response.data.role);
+          (this.user.email = response.data.email),
+          (this.user.password = response.data.password),
+          (this.user.role = response.data.role)
         },
         (error) => {
           console.log(error);

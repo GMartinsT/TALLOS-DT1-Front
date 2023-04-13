@@ -51,7 +51,7 @@ export default defineComponent({
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("id", response.data._id);
           localStorage.setItem("role", response.data.role);
-          router.push({ name: "dashboard" });
+          router.push({ name: "users" });
         },
         (error) => {
           console.log(error);

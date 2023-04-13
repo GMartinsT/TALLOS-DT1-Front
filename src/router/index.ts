@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocation } from 'vue-router'
-import Dashboard from '@/components/Dashboard.vue'
 import LoginViewVue from '@/views/LoginView.vue';
 import CreateUserViewVue from '@/views/CreateUserView.vue';
 import UpdateUserViewVue from '@/views/UpdateUserView.vue';
@@ -26,14 +25,6 @@ const router = createRouter({
       component: LoginViewVue,
     },
     {
-      path: '/app',
-      name: 'dashboard',
-      redirect: 'app/dashboard',
-      component: Dashboard,
-      beforeEnter: authGuard(),
-      children: []
-    },
-    {
       path: '/register',
       name: 'register',
       component: CreateUserViewVue
@@ -48,16 +39,6 @@ const router = createRouter({
       name: 'users',
       component: UsersViewVue
     },
-    //{
-    //  path: '/users/:id',
-    //  name: 'form',
-    //  component: UserForm
-    //},
-    //{
-    //  path: '/users/novo',
-    //  name: 'newUser',
-    //  component: UserForm
-    //}
   ]
 })
 
