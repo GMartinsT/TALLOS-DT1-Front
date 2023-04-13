@@ -5,6 +5,7 @@
         <div class="card-header">Login</div>
         <div class="card-body">
           <div class="form-group">
+            <label for="email">E-mail:</label>
             <input
               required
               type="text"
@@ -12,6 +13,7 @@
               placeholder="E-mail"
               class="form-control"
             />
+            <label for="password">Senha:</label>
             <input
               required
               type="password"
@@ -33,7 +35,7 @@ import axios from "axios";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "LoginVue",
+  name: "LoginView",
   data() {
     return {
       userLogin: {

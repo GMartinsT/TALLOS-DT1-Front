@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocation } from 'vue-router'
-//import HomeView from '../views/HomeView.vue'
-//import UsersView from '../views/UsersView.vue'
-//import UserForm from '../components/UserForm.vue'
-import LoginVue from '@/views/Login.vue'
 import Dashboard from '@/components/Dashboard.vue'
+import LoginViewVue from '@/views/LoginView.vue';
+import CreateUserViewVue from '@/views/CreateUserView.vue';
+import UpdateUserViewVue from '@/views/UpdateUserView.vue';
+import UsersViewVue from '@/views/UsersView.vue';
 
 const authGuard = () => (to: RouteLocation, from: RouteLocation, next:NavigationGuardNext) => {
   if (localStorage.getItem("token") || "") {
@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginVue,
+      component: LoginViewVue,
     },
     {
       path: '/app',
@@ -33,12 +33,21 @@ const router = createRouter({
       beforeEnter: authGuard(),
       children: []
     },
-
-    //{
-    //  path: '/users',
-    //  name: 'users',
-    //  component: UsersView
-    //},
+    {
+      path: '/register',
+      name: 'register',
+      component: CreateUserViewVue
+    },
+    {
+      path: '/update',
+      name: 'update',
+      component: UpdateUserViewVue
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UsersViewVue
+    },
     //{
     //  path: '/users/:id',
     //  name: 'form',

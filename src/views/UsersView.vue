@@ -1,5 +1,5 @@
 <template>
-  <RouterLink to="/users/novo">Adicionar</RouterLink>
+  <RouterLink to="/register">Adicionar</RouterLink>
   <table>
     <thead class="tr">
       <tr>
