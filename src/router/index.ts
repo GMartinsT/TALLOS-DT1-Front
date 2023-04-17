@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocation } from 'vue-router'
-import Dashboard from '@/components/Dashboard.vue'
 import LoginViewVue from '@/views/LoginView.vue';
 import CreateUserViewVue from '@/views/CreateUserView.vue';
 import UpdateUserViewVue from '@/views/UpdateUserView.vue';
