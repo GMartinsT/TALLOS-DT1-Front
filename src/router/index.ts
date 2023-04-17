@@ -18,7 +18,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/app'
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -26,20 +26,12 @@ const router = createRouter({
       component: LoginViewVue,
     },
     {
-      path: '/app',
-      name: 'dashboard',
-      redirect: 'app/dashboard',
-      component: Dashboard,
-      beforeEnter: authGuard(),
-      children: []
-    },
-    {
       path: '/register',
       name: 'register',
       component: CreateUserViewVue
     },
     {
-      path: '/update',
+      path: '/users/:id',
       name: 'update',
       component: UpdateUserViewVue
     },
@@ -48,16 +40,6 @@ const router = createRouter({
       name: 'users',
       component: UsersViewVue
     },
-    //{
-    //  path: '/users/:id',
-    //  name: 'form',
-    //  component: UserForm
-    //},
-    //{
-    //  path: '/users/novo',
-    //  name: 'newUser',
-    //  component: UserForm
-    //}
   ]
 })
 

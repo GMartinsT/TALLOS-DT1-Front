@@ -25,8 +25,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, type Ref } from "vue";
-import axios from "axios";
 import type User from "@/interface/IUser";
+import { request } from "@/api";
 
 
 export default defineComponent({
@@ -34,7 +34,7 @@ export default defineComponent({
   setup() {
     const users: Ref<User[]> = ref([]);
     const listUsers = () => {
-      axios.get("http://localhost:3000/users").then(
+      request.get("/users").then(
         (response) => {
           users.value.splice(0, users.value.length)
           response.data.forEach((user: User) => users.value.push(user));
@@ -48,7 +48,7 @@ export default defineComponent({
     listUsers();
 
     const deleteUser = (id: string) => {
-      axios.delete(`http://localhost:3000/users/${id}`).then(
+      request.delete(`/users/${id}`).then(
         (response) => listUsers(),
         (error) => {
           console.log(error);

@@ -31,8 +31,8 @@
 
 <script lang="ts">
 import router from "@/router";
-import axios from "axios";
 import { defineComponent } from "vue";
+import { request } from "@/api";
 
 export default defineComponent({
   name: "LoginView",
@@ -46,12 +46,12 @@ export default defineComponent({
   },
   methods: {
     login() {
-      axios.post(`http://localhost:3000/auth/login`, this.userLogin).then(
+      request.post(`/auth/login`, this.userLogin).then(
         (response) => {
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("id", response.data._id);
           localStorage.setItem("role", response.data.role);
-          router.push({ name: "dashboard" });
+          router.push({ name: "users" });
         },
         (error) => {
           console.log(error);
