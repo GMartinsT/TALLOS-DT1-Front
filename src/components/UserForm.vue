@@ -18,7 +18,10 @@
       </div>
       <div>
         <label for="role">Cargo:</label>
-        <input type="text" v-model="user.role" id="role" />
+        <select name="role" v-model="user.role" id="role">
+          <option value="user" selected>User</option>
+          <option value="admin">Admin</option>
+        </select>
       </div>
       <div>
         <button type="button" @click="salvar">Salvar</button>
@@ -29,8 +32,9 @@
 
 <script lang="ts">
 import axios from "axios";
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import router from "@/router";
+import { request } from "@/api";
 
 export default {
   name: "UserForm",
@@ -50,12 +54,12 @@ export default {
   created() {
     if (this.$route.params?.id) {
       //colocar axios para pegar dados pelo id (findById) - chama o user aqui
-      axios.get(`http://localhost:3000/users/${this.$route.params?.id}`).then(
+      request.get(`users/${this.$route.params?.id}`).then(
         (response) => {
           (this.user.name = response.data.name),
-            (this.user.email = response.data.email),
-            (this.user.password = response.data.password),
-            (this.user.role = response.data.role);
+          (this.user.email = response.data.email),
+          (this.user.password = response.data.password),
+          (this.user.role = response.data.role)
         },
         (error) => {
           console.log(error);
@@ -68,9 +72,9 @@ export default {
   methods: {
     salvar() {
       if (this.$route.params?.id) {
-        axios
+        request
           .put(
-            `http://localhost:3000/users/${this.$route.params?.id}`,
+            `users/${this.$route.params?.id}`,
             this.user
           )
           .then(
@@ -84,7 +88,7 @@ export default {
             }
           );
       } else {
-        axios.post("http://localhost:3000/users/", this.user).then(
+        request.post("users/", this.user).then(
           (response) => {
             alert("Usuário adicionado com sucesso!");
             router.push({
