@@ -27,6 +27,7 @@
 import { defineComponent, ref, type Ref } from "vue";
 import type User from "@/interface/IUser";
 import { request } from "@/api";
+import UserService from "@/services/userService";
 
 
 export default defineComponent({
@@ -34,25 +35,21 @@ export default defineComponent({
   setup() {
     const users: Ref<User[]> = ref([]);
     const listUsers = () => {
-      request.get("/users").then(
-        (response) => {
+      UserService.listAll().then(
+        (response: any) => {
           users.value.splice(0, users.value.length)
           response.data.forEach((user: User) => users.value.push(user));
-        },
-        (error) => {
-          console.log(error);
-          alert("Erro ao listar usuarios");
-        }
+        },        
       );
     };
     listUsers();
 
-    const deleteUser = (id: string) => {
-      request.delete(`/users/${id}`).then(
-        (response) => listUsers(),
-        (error) => {
-          console.log(error);
-          alert("Erro ao deletar usuario");
+    const deleteUser = (id?: string) => {
+      if(!id) return alert("User inválido");
+      UserService.deleteUser(id).then(
+        (response) => {
+          alert("Usuário deletado com sucesso")
+          listUsers()
         }
       );
     };

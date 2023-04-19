@@ -33,6 +33,8 @@
 import router from "@/router";
 import { defineComponent } from "vue";
 import { request } from "@/api";
+import authService from "@/services/authService";
+import store from "@/store";
 
 export default defineComponent({
   name: "LoginView",
@@ -46,16 +48,13 @@ export default defineComponent({
   },
   methods: {
     login() {
-      request.post(`/auth/login`, this.userLogin).then(
-        (response) => {
+      authService.login(this.userLogin).then(
+        (response: any) => {
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("id", response.data._id);
           localStorage.setItem("role", response.data.role);
+          //store.commit('setId', response.data._id)
           router.push({ name: "users" });
-        },
-        (error) => {
-          console.log(error);
-          alert("Login inválido");
         }
       );
     },
