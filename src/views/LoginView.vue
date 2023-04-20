@@ -51,9 +51,13 @@ export default defineComponent({
       authService.login(this.userLogin).then(
         (response: any) => {
           localStorage.setItem("token", response.data.access_token);
-          localStorage.setItem("id", response.data._id);
+          localStorage.setItem("sessionId", response.data._id);
           localStorage.setItem("role", response.data.role);
-          //store.commit('setId', response.data._id)
+          console.log("logResData", response.data)
+          store.commit("setId", response.data._id)
+          store.commit("setName", response.data.name)
+          store.commit("setToken", response.data.access_token)
+          store.commit("setRole", response.data.role)
           router.push({ name: "users" });
         }
       );
