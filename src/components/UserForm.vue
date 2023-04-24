@@ -31,16 +31,17 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import router from "@/router";
 import { request } from "@/api";
+import userService from "@/services/userService";
+import type User from "@/interface/IUser";
 
 export default {
   name: "UserForm",
   components: {},
   setup() {
-    const user = ref({
+    const user: Ref<User> = ref({
       name: "",
       email: "",
       password: "",
@@ -57,9 +58,9 @@ export default {
       request.get(`users/${this.$route.params?.id}`).then(
         (response) => {
           (this.user.name = response.data.name),
-          (this.user.email = response.data.email),
-          (this.user.password = response.data.password),
-          (this.user.role = response.data.role)
+            (this.user.email = response.data.email),
+            (this.user.password = response.data.password),
+            (this.user.role = response.data.role);
         },
         (error) => {
           console.log(error);
@@ -71,36 +72,19 @@ export default {
 
   methods: {
     salvar() {
-      if (this.$route.params?.id) {
-        request
-          .put(
-            `users/${this.$route.params?.id}`,
-            this.user
-          )
-          .then(
-            () => {
-              alert("Usuário atualizado com sucesso!");
-              window.location.reload();
-            },
-            (error) => {
-              console.log(error);
-              alert("Erro ao atualizar o usuario");
-            }
-          );
+      if (this.$route.params?.id && typeof this.$route.params.id == "string") {
+        userService.updateUser(this.$route.params.id, this.user).then(() => {
+          alert("Usuário atualizado com sucesso!");
+          window.location.reload();
+        });
       } else {
-        request.post("users/", this.user).then(
-          (response) => {
-            alert("Usuário adicionado com sucesso!");
-            router.push({
-              name: "form",
-              params: { id: response.data._id },
-            });
-          },
-          (error) => {
-            console.log(error);
-            alert("Erro ao adicionado o usuario");
-          }
-        );
+        userService.createUser(this.user).then((response: any) => {
+          alert("Usuário criado com sucesso");
+          router.push({
+            name: "form",
+            params: { id: response.data._id },
+          });
+        });
       }
     },
   },
