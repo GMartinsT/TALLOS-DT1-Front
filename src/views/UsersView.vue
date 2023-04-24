@@ -26,9 +26,7 @@
 <script lang="ts">
 import { defineComponent, ref, type Ref } from "vue";
 import type User from "@/interface/IUser";
-import { request } from "@/api";
 import UserService from "@/services/userService";
-import store from "@/store";
 
 
 export default defineComponent({
@@ -43,7 +41,6 @@ export default defineComponent({
         },        
       );
     };
-    console.log("logStore", store);
     listUsers();
 
     const deleteUser = (id?: string) => {

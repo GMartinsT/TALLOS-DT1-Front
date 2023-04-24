@@ -51,16 +51,16 @@ export default defineComponent({
       authService.login(this.userLogin).then(
         (response: any) => {
           localStorage.setItem("token", response.data.access_token);
-          localStorage.setItem("sessionId", response.data._id);
-          localStorage.setItem("role", response.data.role);
-          localStorage.setItem("id", response.data._id);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("sessionId", response.data.user._id);
+          localStorage.setItem("role", response.data.user.role);
+          localStorage.setItem("id", response.data.user._id);
+          localStorage.setItem("email", response.data.user.email);
+          localStorage.setItem("name", response.data.user.name);
           console.log("logResData", response.data);
-          store.commit("setId", response.data._id);
-          store.commit("setName", response.data.name);
+          store.commit("setId", response.data.user._id);
+          store.commit("setName", response.data.user.name);
           store.commit("setToken", response.data.access_token);
-          store.commit("setRole", response.data.role);
+          store.commit("setRole", response.data.user.role);
           SocketModule.connect();
           router.push({ name: "users" });
         }

@@ -1,4 +1,4 @@
-import { request } from "@/api";
+import { request } from "@/services/api";
 import type User from "@/interface/IUser"
 
 export default {

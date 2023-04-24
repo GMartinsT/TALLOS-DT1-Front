@@ -19,7 +19,7 @@
       <div>
         <label for="role">Cargo:</label>
         <select name="role" v-model="user.role" id="role">
-          <option value="user" selected>User</option>
+          <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
       </div>
@@ -33,7 +33,7 @@
 <script lang="ts">
 import { ref, type Ref } from "vue";
 import router from "@/router";
-import { request } from "@/api";
+import { request } from "@/services/api";
 import userService from "@/services/userService";
 import type User from "@/interface/IUser";
 
