@@ -51,7 +51,7 @@ export default defineComponent({
       authService.login(this.userLogin).then(
         (response: any) => {
           localStorage.setItem("token", response.data.access_token);
-          localStorage.setItem("sessionId", response.data.user._id);
+          localStorage.setItem("sessionId", response.data.user.email);
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("id", response.data.user._id);
           localStorage.setItem("email", response.data.user.email);

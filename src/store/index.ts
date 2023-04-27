@@ -6,15 +6,16 @@ export default createStore({
         email: localStorage.getItem("email") || null,
         name: null,
         role: localStorage.getItem("role") || null,
-        token: null
-    },
+        token: localStorage.getItem("token") || ""
+        },
 
     getters: {
         getId: (state) => state.id,
         getEmail: (state) => state.email,
         getName: (state) => state.name,
         getRole: (state) => state.role,
-        IsAdmin: (state) => state.role === "admin"
+        IsAdmin: (state) => state.role === "admin",
+        sessionId: (state)=> state.email
     },
 
     mutations: {
@@ -26,14 +27,15 @@ export default createStore({
             state.email = null,
             state.name = null,
             state.role = null,
-            state.token = null,
+            state.token = "",
             localStorage.clear()
         },
 
-        setId: (state, value) => (state.id = value),
+        setId: (state, value) => (state.email = value),
         setName: (state, value) => (state.name = value),
         setRole: (state, value) => (state.role = value),
         setToken: (state, value) => (state.token = value),
+        setSession: (state, value) =>(state.email = value)
     },
 
     actions: {
