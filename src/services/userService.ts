@@ -16,11 +16,14 @@ export default {
         })
     },
 
-    updateUser(id: string, user: User) {
-        return request.put(`users/${id}`, user).catch((error) => {
-            console.log(error);
-            alert("Erro ao atualizar usuário");
-        })
+   async updateUser(id: string, user: User) {
+        try{
+            const result = await request.put(`users/${id}`, user)
+            console.log(`Usuário atualizado com sucesso!`)
+            return result
+        }catch(error){
+            console.log(`Erro ao atualizar usuário, ${error}`)
+        }
     },
 
     deleteUser(id: string) {

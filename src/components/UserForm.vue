@@ -71,12 +71,13 @@ export default {
   },
 
   methods: {
-    salvar() {
+   async salvar() {
       if (this.$route.params?.id && typeof this.$route.params.id == "string") {
-        userService.updateUser(this.$route.params.id, this.user).then(() => {
-          alert("Usuário atualizado com sucesso!");
-          window.location.reload();
-        });
+        return await userService.updateUser(this.$route.params.id, this.user)
+     
+     //  .then(() => {
+       //   alert("Usuário atualizado com sucesso!");
+      //  });
       } else {
         userService.createUser(this.user).then((response: any) => {
           alert("Usuário criado com sucesso");
@@ -87,6 +88,7 @@ export default {
         });
       }
     },
+
   },
 };
 </script>
