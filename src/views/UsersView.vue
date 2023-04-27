@@ -26,42 +26,59 @@
 <script lang="ts">
 import { defineComponent, ref, type Ref } from "vue";
 import type User from "@/interface/IUser";
-import { request } from "@/api";
 import UserService from "@/services/userService";
+import { SocketModule } from "@/services/socket";
 import store from "@/store";
-
 
 export default defineComponent({
   name: "Users",
   setup() {
-    const users: Ref<User[]> = ref([]);
-    const listUsers = () => {
-      UserService.listAll().then(
-        (response: any) => {
-          users.value.splice(0, users.value.length)
-          response.data.forEach((user: User) => users.value.push(user));
-        },        
-      );
-    };
-    console.log("logStore", store);
-    listUsers();
-
-    const deleteUser = (id?: string) => {
-      if(!id) return alert("User inválido");
-      UserService.deleteUser(id).then(
-        (response) => {
-          alert("Usuário deletado com sucesso")
-          listUsers()
-        }
-      );
-    };
-    return {
-      users,
-      listUsers,
-      deleteUser,
-    };
+    const users = ref<User[]>([]);
+    return {users, socketModule: SocketModule.connect()}
   },
-  methods: {},
+  methods: {
+
+ async listUsers(){
+   this.users =  await UserService.listAll()
+  // this.users.splice(0, this.users.length)
+         
+    },
+deleteUser(id?: any){
+      if(!id) {
+         alert("User inválido")
+        };
+        alert("Usuário deletado com sucesso")
+        this.$router.push({name: "users"})
+        return   UserService.deleteUser(id)
+    }
+  },
+ mounted(){
+    this.listUsers()
+
+  this.socketModule.registerListener('removed-user', "removed-user", (id: string)=>{
+    //apenas listar novamente quando o evento for recebido do backend para o front-end
+    this.listUsers()
+  })
+  this.socketModule.registerListener('update', "update", (id: string)=>{
+    //limpar o array e gerar uma nova listagem
+    this.users = [];
+    this.listUsers()
+  })
+  this.socketModule.registerListener('new-user', "new-user", (id: string)=>{
+    //limpar o array e gerar uma nova listagem
+    this.users = [];
+    this.listUsers()
+  })
+  this.socketModule.registerListener('is-logged', 'is-logged', (data: string)=>{
+    let userLogged = localStorage.getItem('sessionId')
+    if(String(userLogged) === data){
+      localStorage.clear()
+      this.$router.push({name: 'login'})
+    }
+    this.listUsers()
+  })
+
+  }
 });
 </script>
 

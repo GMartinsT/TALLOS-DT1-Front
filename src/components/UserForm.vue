@@ -14,17 +14,18 @@
       </div>
       <div>
         <label for="password">Senha:</label>
-        <input type="text" v-model="user.password" id="password" />
+        <input type="password" v-model="user.password" id="password" />
       </div>
       <div>
         <label for="role">Cargo:</label>
         <select name="role" v-model="user.role" id="role">
-          <option value="user" selected>User</option>
+          <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
       </div>
       <div>
-        <button type="button" @click="salvar">Salvar</button>
+        <button type="button" @click="salvar(), $router.push({name: 'users'})">Salvar</button>
+        <button type="button" @click="editar(), $router.push({name: 'users'})">Salvar Edição</button>
       </div>
     </form>
   </div>
@@ -33,7 +34,7 @@
 <script lang="ts">
 import { ref, type Ref } from "vue";
 import router from "@/router";
-import { request } from "@/api";
+import { request } from "@/services/api";
 import userService from "@/services/userService";
 import type User from "@/interface/IUser";
 
@@ -71,22 +72,29 @@ export default {
   },
 
   methods: {
-    salvar() {
-      if (this.$route.params?.id && typeof this.$route.params.id == "string") {
-        userService.updateUser(this.$route.params.id, this.user).then(() => {
-          alert("Usuário atualizado com sucesso!");
-          window.location.reload();
-        });
-      } else {
-        userService.createUser(this.user).then((response: any) => {
-          alert("Usuário criado com sucesso");
-          router.push({
-            name: "form",
-            params: { id: response.data._id },
-          });
-        });
-      }
-    },
-  },
+   async editar() {
+  try {
+    if (this.$route.params?.id && typeof this.$route.params.id == "string") {
+        return await userService.updateUser(this.$route.params.id, this.user)
+    }
+    console.log('Att com sucesso')
+
+  } catch (error){
+    console.log(error)
+  }
+   },
+
+   async salvar(){
+    try{
+      const response =  await userService.createUser(this.user)
+      return response
+      
+    }catch(error){
+      alert('Erro ao criar usuário')
+    }
+  }
+  
+}
+
 };
 </script>
