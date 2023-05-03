@@ -49,7 +49,7 @@ export default defineComponent({
   methods: {
     login() {
       authService.login(this.userLogin).then(
-        (response: any) => {
+        async (response: any) => {
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("sessionId", response.data.user.email);
           localStorage.setItem("role", response.data.user.role);
@@ -62,7 +62,7 @@ export default defineComponent({
           store.commit("setToken", response.data.access_token);
           store.commit("setRole", response.data.user.role);
           SocketModule.connect();
-          router.push({ name: "users" });
+          await router.push({ name: "users" });
         }
       );
     },
