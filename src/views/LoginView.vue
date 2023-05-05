@@ -48,23 +48,21 @@ export default defineComponent({
   },
   methods: {
     login() {
-      authService.login(this.userLogin).then(
-        (response: any) => {
-          localStorage.setItem("token", response.data.access_token);
-          localStorage.setItem("sessionId", response.data.user.email);
-          localStorage.setItem("role", response.data.user.role);
-          localStorage.setItem("id", response.data.user._id);
-          localStorage.setItem("email", response.data.user.email);
-          localStorage.setItem("name", response.data.user.name);
-          console.log("logResData", response.data);
-          store.commit("setId", response.data.user._id);
-          store.commit("setName", response.data.user.name);
-          store.commit("setToken", response.data.access_token);
-          store.commit("setRole", response.data.user.role);
-          SocketModule.connect();
-          router.push({ name: "users" });
-        }
-      );
+      authService.login(this.userLogin).then(async (response: any) => {
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("sessionId", response.data.user.email);
+        localStorage.setItem("role", response.data.user.role);
+        localStorage.setItem("id", response.data.user._id);
+        localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("name", response.data.user.name);
+        console.log("logResData", response.data);
+        store.commit("setId", response.data.user._id);
+        store.commit("setName", response.data.user.name);
+        store.commit("setToken", response.data.access_token);
+        store.commit("setRole", response.data.user.role);
+        SocketModule.connect();
+        await router.push({ name: "users" });
+      });
     },
   },
 });
@@ -76,8 +74,18 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #AAAAAA;
 }
 .login-page .card {
   width: 30%;
+}
+.btn {
+  margin-top: 15px;
+  color: #111111;
+  background-color: #AAAAAA;
+  border-color: #111111;
+}
+.card {
+  border-color: #111111;
 }
 </style>

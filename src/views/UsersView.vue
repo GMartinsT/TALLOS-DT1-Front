@@ -1,22 +1,24 @@
 <template>
-  <RouterLink to="/register">Adicionar</RouterLink>
-  <table>
-    <thead class="tr">
+  <navbar />
+  <table class="table">
+    <thead>
       <tr>
-        <th class="th1">Funcionário</th>
-        <th>E-mail</th>
-        <th>Cargo</th>
-        <th class="th2">Ações</th>
+        <th scope="col">#</th>
+        <th scope="col">Funcionário</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Cargo</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="user in users" :key="user._id">
-        <td class="tdname">{{ user.name }}</td>
-        <td class="tdemail">{{ user.email }}</td>
-        <td class="">{{ user.role }}</td>
-        <td>
-          <RouterLink :to="`/users/${user._id}`">Editar</RouterLink>
-          <button @click="deleteUser(user._id)">Excluir</button>
+      <tr v-for="(user, index) in users" :key="user._id">
+        <th scope="row">{{index + 1}}</th>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td class="tdactions">
+          <RouterLink :to="`/users/${user._id}`" style="text-decoration:none"><i class="fa-solid fa-user-pen"></i></RouterLink>
+          <i @click="deleteUser(user._id)" class="fa-solid fa-trash"></i>
         </td>
       </tr>
     </tbody>
@@ -24,14 +26,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, type Ref } from "vue";
+import { defineComponent, ref } from "vue";
 import type User from "@/interface/IUser";
 import UserService from "@/services/userService";
 import { SocketModule } from "@/services/socket";
-import store from "@/store";
+import Navbar from "@/components/Navbar.vue";
 
 export default defineComponent({
   name: "Users",
+  components: { Navbar },
   setup() {
     const users = ref<User[]>([]);
     return {users, socketModule: SocketModule.connect()}
@@ -83,26 +86,11 @@ deleteUser(id?: any){
 </script>
 
 <style>
-table {
-  border-spacing: 0;
-  width: 70%;
-  border: solid #ccc 1px;
-  border-radius: 10px;
+.fa-trash {
+  cursor: pointer;
+  color: #FF4136;
 }
-th {
-  text-align: left;
-  font-weight: bold;
-  padding: 0.5rem;
-}
-
-td {
-  padding: 1rem;
-  border: solid grey 1px;
-}
-
-.tr {
-  background-color: #1089ff;
-  color: #fff;
-  border: solid grey 1px;
+.tdactions {
+  margin: 10px;
 }
 </style>
