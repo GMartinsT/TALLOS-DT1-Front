@@ -2,7 +2,15 @@
   <form @submit.prevent="login">
     <div class="login-page">
       <div class="card">
-        <div class="card-header">LOGIN</div>
+        <div class="card-header">
+          <img
+            class="logoLogin"
+            src="/logo-dt1.png"
+            alt="Logo"
+            width="180"
+            height="55"
+          />
+        </div>
         <div class="card-body">
           <div class="form-group">
             <label for="email">E-mail:</label>
@@ -10,7 +18,7 @@
               required
               type="text"
               v-model="userLogin.email"
-              placeholder="E-mail"
+              placeholder="Digite seu e-mail"
               class="form-control"
             />
             <label for="password">Senha:</label>
@@ -18,7 +26,7 @@
               required
               type="password"
               v-model="userLogin.password"
-              placeholder="Senha"
+              placeholder="Digite sua senha"
               class="form-control"
             />
             <button class="btn btn-primary w-100" type="submit">Login</button>
@@ -86,8 +94,8 @@ export default defineComponent({
 }
 .btn {
   margin-top: 15px;
-  background-color: #020d18;
-  color: #399bc1;
+  background-color: #001f3f;
+  color: #FFFFFF;
   border-color: #111111;
 }
 .card {
@@ -99,16 +107,18 @@ export default defineComponent({
   margin-bottom: 1rem;
 }
 .card-body {
-  background-color: #0b2840;
+  background-color: #0d61b5;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 .card-header {
-  background-color: #0b2840;
-  color: #399bc1;
-  text-align: center;
+  background-color: #001f3f;
 }
 label {
-  color: #399bc1;
+  color: #ffffff;
+}
+.logoLogin {
+    margin-left: 60px;
+    filter: invert(100%);
 }
 </style>

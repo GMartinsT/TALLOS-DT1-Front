@@ -1,6 +1,6 @@
 
 <template>
-  <nav class="navbar bg-dark" data-bs-theme="dark">
+  <nav class="navbar" data-bs-theme="dark">
     <a class="navbar-brand" href="/logo-dt1.png">
       <img
         class="logo"
@@ -14,12 +14,18 @@
       <a class="nav-link active" aria-current="page" href="/users"
         >Lista de Funcionários</a
       >
-      <a v-if="user.role === 'admin'" href="/register" style="text-decoration:none">Registrar</a>
+      <a
+        class="registerLink"
+        v-if="user.role === 'admin'"
+        href="/register"
+        style="text-decoration: none"
+        >Registrar</a
+      >
     </div>
     <div>
-      <div class="dropdown-center">
+      <div class="btn-group">
         <button
-          class="btn btn-secondary dropdown-toggle"
+          class="btn dropdown-toggle"
           type="button"
           data-bs-toggle="dropdown"
           data-bs-display="static"
@@ -27,10 +33,10 @@
         >
           Meu Perfil
         </button>
-        <ul class="dropdown-menu">
-          <li>E-mail:{{ user.email }}</li>
-          <li>Nome:{{ user.name }}</li>
-          <li>Cargo:{{ user.role }}</li>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>E-mail: {{ user.email }}</li>
+          <li>Nome: {{ user.name }}</li>
+          <li>Cargo: {{ user.role }}</li>
           <button
             type="button"
             class="btn btn-light"
@@ -79,8 +85,9 @@ export default defineComponent({
   flex-direction: row;
   align-items: center;
 }
-.dropdown-center {
-  width: 220px;
+.btn-group {
+  width: 140px;
+  margin-right: 30px;
 }
 .dropdown-menu.show {
   display: flex;
@@ -88,8 +95,26 @@ export default defineComponent({
   gap: 1rem;
   padding: 1rem;
   border-radius: 15px;
+  background-color: #001f3f;
+  color: #FFFFFF;
+  width: 300px;
 }
 .nav-link {
-    margin-right: 15px;
+  margin-right: 15px;
+  font-size: 1.3rem;
+}
+.btn {
+  background-color: #0d61b5 !important;
+  color: #FFFFFF !important;
+}
+.navbar {
+  background-color: #001f3f;
+}
+.navbar-nav .registerLink {
+  color: #ffffff;
+  text-decoration: none;
+  border-left: 3px solid #FFFFFF;
+  padding-left: 15px;
+  font-size: 1.3rem;
 }
 </style>

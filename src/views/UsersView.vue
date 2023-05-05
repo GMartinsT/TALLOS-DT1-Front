@@ -1,5 +1,8 @@
 <template>
   <navbar />
+  <div class="helloUser">
+    <h1>Olá {{ userLogado }}, seja bem vindo!</h1>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -12,12 +15,14 @@
     </thead>
     <tbody>
       <tr v-for="(user, index) in users" :key="user._id">
-        <th scope="row">{{index + 1}}</th>
+        <th scope="row">{{ index + 1 }}</th>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
         <td class="tdactions">
-          <RouterLink :to="`/users/${user._id}`" style="text-decoration:none"><i class="fa-solid fa-user-pen"></i></RouterLink>
+          <RouterLink :to="`/users/${user._id}`" style="text-decoration: none"
+            ><i class="fa-solid fa-user-pen"></i
+          ></RouterLink>
           <i @click="deleteUser(user._id)" class="fa-solid fa-trash"></i>
         </td>
       </tr>
@@ -36,61 +41,76 @@ export default defineComponent({
   name: "Users",
   components: { Navbar },
   setup() {
+    const userLogado = localStorage.getItem("name");
     const users = ref<User[]>([]);
-    return {users, socketModule: SocketModule.connect()}
+    return { users, userLogado, socketModule: SocketModule.connect() };
   },
   methods: {
-
- async listUsers(){
-   this.users =  await UserService.listAll()
-  // this.users.splice(0, this.users.length)
-         
+    async listUsers() {
+      this.users = await UserService.listAll();
+      // this.users.splice(0, this.users.length)
     },
-deleteUser(id?: any){
-      if(!id) {
-         alert("User inválido")
-        };
-        alert("Usuário deletado com sucesso")
-        this.$router.push({name: "users"})
-        return   UserService.deleteUser(id)
-    }
+    deleteUser(id?: any) {
+      if (!id) {
+        alert("User inválido");
+      }
+      alert("Usuário deletado com sucesso");
+      this.$router.push({ name: "users" });
+      return UserService.deleteUser(id);
+    },
   },
- mounted(){
-    this.listUsers()
+  mounted() {
+    this.listUsers();
 
-  this.socketModule.registerListener('removed-user', "removed-user", (id: string)=>{
-    //apenas listar novamente quando o evento for recebido do backend para o front-end
-    this.listUsers()
-  })
-  this.socketModule.registerListener('update', "update", (id: string)=>{
-    //limpar o array e gerar uma nova listagem
-    this.users = [];
-    this.listUsers()
-  })
-  this.socketModule.registerListener('new-user', "new-user", (id: string)=>{
-    //limpar o array e gerar uma nova listagem
-    this.users = [];
-    this.listUsers()
-  })
-  this.socketModule.registerListener('is-logged', 'is-logged', (data: string)=>{
-    let userLogged = localStorage.getItem('sessionId')
-    if(String(userLogged) === data){
-      localStorage.clear()
-      this.$router.push({name: 'login'})
-    }
-    this.listUsers()
-  })
-
-  }
+    this.socketModule.registerListener(
+      "removed-user",
+      "removed-user",
+      (id: string) => {
+        //apenas listar novamente quando o evento for recebido do backend para o front-end
+        this.listUsers();
+      }
+    );
+    this.socketModule.registerListener("update", "update", (id: string) => {
+      //limpar o array e gerar uma nova listagem
+      this.users = [];
+      this.listUsers();
+    });
+    this.socketModule.registerListener("new-user", "new-user", (id: string) => {
+      //limpar o array e gerar uma nova listagem
+      this.users = [];
+      this.listUsers();
+    });
+    this.socketModule.registerListener(
+      "is-logged",
+      "is-logged",
+      (data: string) => {
+        let userLogged = localStorage.getItem("sessionId");
+        if (String(userLogged) === data) {
+          localStorage.clear();
+          this.$router.push({ name: "login" });
+        }
+        this.listUsers();
+      }
+    );
+  },
 });
 </script>
 
 <style>
 .fa-trash {
   cursor: pointer;
-  color: #FF4136;
+  color: #ff4136;
 }
 .tdactions {
   margin: 10px;
+}
+.helloUser {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 5px;
+}
+.table {
+  border-top: 1px solid black;
 }
 </style>
