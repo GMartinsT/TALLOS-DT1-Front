@@ -1,5 +1,5 @@
 <template>
-    <div class="update">
+    <div class="register">
         <UserFormVue />
     </div>
 </template>
@@ -15,3 +15,12 @@ export default defineComponent({
     }
 })
 </script>
+
+<style>
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #aaaaaa;
+}
+</style>

@@ -1,20 +1,30 @@
 
 <template>
-  <div>
+  <div >
     <h1 v-if="$route.params?.id">Menu de edição de usuários:</h1>
     <h1 v-else>Registre-se:</h1>
-    <form >
+    <form>
       <div class="mb-3">
         <label class="form-label" for="name">Nome completo:</label>
         <input class="form-control" type="text" v-model="user.name" id="name" />
       </div>
       <div>
         <label class="form-label" for="email">E-mail:</label>
-        <input class="form-control" type="text" v-model="user.email" id="email" />
+        <input
+          class="form-control"
+          type="text"
+          v-model="user.email"
+          id="email"
+        />
       </div>
       <div>
         <label class="form-label" for="password">Senha:</label>
-        <input class="form-control" type="password" v-model="user.password" id="password" />
+        <input
+          class="form-control"
+          type="password"
+          v-model="user.password"
+          id="password"
+        />
       </div>
       <div>
         <label class="form-label" for="role">Cargo:</label>
@@ -69,9 +79,9 @@ export default {
       request.get(`users/${this.$route.params?.id}`).then(
         (response) => {
           (this.user.name = response.data.name),
-          (this.user.email = response.data.email),
-          (this.user.password = response.data.password),
-          (this.user.role = response.data.role);
+            (this.user.email = response.data.email),
+            (this.user.password = response.data.password),
+            (this.user.role = response.data.role);
         },
         (error) => {
           console.log(error);
