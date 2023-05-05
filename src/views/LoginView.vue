@@ -2,7 +2,7 @@
   <form @submit.prevent="login">
     <div class="login-page">
       <div class="card">
-        <div class="card-header">Login</div>
+        <div class="card-header">LOGIN</div>
         <div class="card-body">
           <div class="form-group">
             <label for="email">E-mail:</label>
@@ -73,19 +73,42 @@ export default defineComponent({
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #AAAAAA;
+  justify-content: flex-end;
+  background-color: #aaaaaa;
+  background-image: url("background2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  object-fit: cover;
+  padding-right: 12rem;
 }
 .login-page .card {
-  width: 30%;
+  width: 20%;
 }
 .btn {
   margin-top: 15px;
-  color: #111111;
-  background-color: #AAAAAA;
+  background-color: #020d18;
+  color: #399bc1;
   border-color: #111111;
 }
 .card {
   border-color: #111111;
+  border-radius: 10px;
+  background: none !important;
+}
+.form-control {
+  margin-bottom: 1rem;
+}
+.card-body {
+  background-color: #0b2840;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.card-header {
+  background-color: #0b2840;
+  color: #399bc1;
+  text-align: center;
+}
+label {
+  color: #399bc1;
 }
 </style>

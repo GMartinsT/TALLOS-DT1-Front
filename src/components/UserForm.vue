@@ -53,7 +53,6 @@
 
 <script lang="ts">
 import { ref, type Ref } from "vue";
-import router from "@/router";
 import { request } from "@/services/api";
 import userService from "@/services/userService";
 import type User from "@/interface/IUser";
