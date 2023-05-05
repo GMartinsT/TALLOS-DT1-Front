@@ -94,7 +94,7 @@ export default defineComponent({
 }
 .btn {
   margin-top: 15px;
-  background-color: #001f3f;
+  background-color: #001f3f !important;
   color: #FFFFFF;
   border-color: #111111;
 }
@@ -120,5 +120,8 @@ label {
 .logoLogin {
     margin-left: 60px;
     filter: invert(100%);
+}
+.form-control {
+  border: 1px solid #111111;
 }
 </style>

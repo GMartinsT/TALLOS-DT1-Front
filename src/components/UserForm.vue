@@ -1,7 +1,8 @@
-
 <template>
-  <div >
-    <h1 v-if="$route.params?.id">Menu de edição de usuários:</h1>
+  <div class="registerBody">
+    <h1 class="formTitle" v-if="$route.params?.id">
+      Menu de edição de usuários:
+    </h1>
     <h1 v-else>Registre-se:</h1>
     <form>
       <div class="mb-3">
@@ -35,16 +36,20 @@
       </div>
       <div>
         <button
+          v-if="$route.params?.id"
+          class="btn"
           type="button"
-          @click="salvar(), $router.push({ name: 'users' })"
+          @click="editar(), $router.push({ name: 'users' })"
         >
           Salvar
         </button>
         <button
+          v-else
+          class="btn"
           type="button"
-          @click="editar(), $router.push({ name: 'users' })"
+          @click="salvar(), $router.push({ name: 'users' })"
         >
-          Salvar Edição
+          Registrar
         </button>
       </div>
     </form>
@@ -116,3 +121,27 @@ export default {
   },
 };
 </script>
+
+<style>
+.registerBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #001f3f;
+  border-radius: 15px;
+  background-color: #0d61b5;
+  padding: 2rem;
+}
+.formTitle,
+.form-label {
+  color: #ffffff;
+}
+.form-control {
+  border: 1px solid #111111;
+}
+.btn {
+  color: #ffffff !important;
+  background-color: #001f3f !important;
+  border: 1px solid #111111 !important;
+}
+</style>
