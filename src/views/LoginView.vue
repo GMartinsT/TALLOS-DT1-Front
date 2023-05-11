@@ -57,17 +57,18 @@ export default defineComponent({
   methods: {
     login() {
       authService.login(this.userLogin).then(async (response: any) => {
+        console.log(response)
         localStorage.setItem("token", response.data.access_token);
-        localStorage.setItem("sessionId", response.data.user.email);
-        localStorage.setItem("role", response.data.user.role);
-        localStorage.setItem("id", response.data.user._id);
-        localStorage.setItem("email", response.data.user.email);
-        localStorage.setItem("name", response.data.user.name);
+        localStorage.setItem("sessionId", response.data.email);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("id", response.data._id);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("name", response.data.name);
         console.log("logResData", response.data);
-        store.commit("setId", response.data.user._id);
-        store.commit("setName", response.data.user.name);
+        store.commit("setId", response.data._id);
+        store.commit("setName", response.data.name);
         store.commit("setToken", response.data.access_token);
-        store.commit("setRole", response.data.user.role);
+        store.commit("setRole", response.data.role);
         SocketModule.connect();
         await router.push({ name: "users" });
       });
@@ -96,10 +97,13 @@ export default defineComponent({
   margin-top: 15px;
   background-color: #001f3f !important;
   color: #FFFFFF;
-  border-color: #111111;
+  border-color: black;
+}
+.btn:hover {
+  border: 2px solid #ffffff;
 }
 .card {
-  border-color: #111111;
+  border-color: black;
   border-radius: 10px;
   background: none !important;
 }
@@ -112,16 +116,18 @@ export default defineComponent({
   border-bottom-right-radius: 10px;
 }
 .card-header {
+  display: flex;
+  justify-content: center;
   background-color: #001f3f;
 }
 label {
   color: #ffffff;
 }
 .logoLogin {
-    margin-left: 60px;
+    margin-left: 3%;
     filter: invert(100%);
 }
 .form-control {
-  border: 1px solid #111111;
+  border: 1px solid black;
 }
 </style>

@@ -23,7 +23,7 @@ export default {
 
     async updateUser(id: string, user: User) {
         try {
-            const result = await request.put(`users/${id}`, user)
+            const result = await request.patch(`users/${id}`, user)
             console.log(`Usuário atualizado com sucesso!`)
             return result
         } catch (error) {

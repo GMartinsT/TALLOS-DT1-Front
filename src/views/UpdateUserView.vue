@@ -1,4 +1,5 @@
 <template>
+    <Navbar />
     <div class="update">
         <UserFormVue />
     </div>
@@ -18,3 +19,15 @@ export default defineComponent({
 })
 </script>
 
+<style>
+navbar {
+    width: 100%;
+}
+.update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 8%;;
+}
+</style>

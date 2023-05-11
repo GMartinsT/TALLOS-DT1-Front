@@ -1,13 +1,17 @@
 <template>
   <div class="registerBody">
-    <h1 class="formTitle" v-if="$route.params?.id">
-      Menu de edição de usuários:
-    </h1>
-    <h1 v-else>Registre-se:</h1>
+    <h1 class="formTitle" v-if="$route.params?.id">Menu de Edição:</h1>
+    <h1 class="formTitle" v-else>Registre:</h1>
     <form>
       <div class="mb-3">
         <label class="form-label" for="name">Nome completo:</label>
-        <input class="form-control" type="text" v-model="user.name" id="name" />
+        <input
+          class="form-control"
+          type="text"
+          v-model="user.name"
+          id="name"
+          placeholder="Nome do usuário"
+        />
       </div>
       <div>
         <label class="form-label" for="email">E-mail:</label>
@@ -16,6 +20,7 @@
           type="text"
           v-model="user.email"
           id="email"
+          placeholder="E-mail do usuário"
         />
       </div>
       <div>
@@ -25,19 +30,20 @@
           type="password"
           v-model="user.password"
           id="password"
+          placeholder="Senha do usuário"
         />
       </div>
-      <div>
+      <div class="select">
         <label class="form-label" for="role">Cargo:</label>
         <select name="role" v-model="user.role" id="role">
-          <option value="user">User</option>
+          <option value="user" selected>User</option>
           <option value="admin">Admin</option>
         </select>
       </div>
-      <div>
+      <div class="saveBtn">
         <button
           v-if="$route.params?.id"
-          class="btn"
+          class="btnForm"
           type="button"
           @click="editar(), $router.push({ name: 'users' })"
         >
@@ -45,7 +51,7 @@
         </button>
         <button
           v-else
-          class="btn"
+          class="btnForm"
           type="button"
           @click="salvar(), $router.push({ name: 'users' })"
         >
@@ -132,16 +138,37 @@ export default {
   background-color: #0d61b5;
   padding: 2rem;
 }
-.formTitle,
+.formTitle {
+  background-color: #001f3f;
+  border-radius: 15px;
+  color: #ffffff;
+  padding: 0.5rem;
+  border: 2px solid black;
+}
 .form-label {
   color: #ffffff;
 }
 .form-control {
-  border: 1px solid #111111;
+  border: 1px solid black;
 }
-.btn {
-  color: #ffffff !important;
-  background-color: #001f3f !important;
-  border: 1px solid #111111 !important;
+.btnForm {
+  color: #ffffff;
+  background-color: #001f3f;
+  border: 1px solid black;
+  height: 3rem;
+  width: 9rem;
+  font-size: 1.5rem;
+  border-radius: 15px;
+}
+.btnForm:hover {
+  border: 2px solid #ffffff;
+}
+.saveBtn {
+  display: flex;
+  justify-content: center;
+}
+.select {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 </style>

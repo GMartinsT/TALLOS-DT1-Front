@@ -20,10 +20,31 @@
         <td>{{ user.email }}</td>
         <td>{{ user.role }}</td>
         <td class="tdactions">
-          <RouterLink :to="`/users/${user._id}`" style="text-decoration: none"
-            ><i class="fa-solid fa-user-pen"></i
-          ></RouterLink>
-          <i @click="deleteUser(user._id)" class="fa-solid fa-trash"></i>
+          <RouterLink
+            v-if="userLogadoR === 'admin'"
+            :to="`/users/${user._id}`"
+            style="text-decoration: none"
+          >
+            <i
+              class="fa-solid fa-user-pen"
+              style="cursor: pointer; color: #0d61b5"
+            ></i>
+          </RouterLink>
+
+          <div v-else>
+            <i
+              class="fa-solid fa-user-pen"
+              style="cursor: not-allowed; color: #1e3050;"
+            ></i>
+          </div>
+
+          <i
+            v-if="userLogadoR === 'admin'"
+            @click="deleteUser(user._id)"
+            class="fa-solid fa-trash"
+            style="color: #ff4136"
+          ></i>
+          <i v-else class="fa-solid fa-trash" style="cursor: not-allowed"></i>
         </td>
       </tr>
     </tbody>
@@ -42,8 +63,14 @@ export default defineComponent({
   components: { Navbar },
   setup() {
     const userLogado = localStorage.getItem("name");
+    const userLogadoR = localStorage.getItem("role");
     const users = ref<User[]>([]);
-    return { users, userLogado, socketModule: SocketModule.connect() };
+    return {
+      users,
+      userLogado,
+      userLogadoR,
+      socketModule: SocketModule.connect(),
+    };
   },
   methods: {
     async listUsers() {
@@ -99,10 +126,11 @@ export default defineComponent({
 <style>
 .fa-trash {
   cursor: pointer;
-  color: #ff4136;
+  margin-left: 14px;
 }
 .tdactions {
-  margin: 10px;
+  display: flex;
+  align-items: center;
 }
 .helloUser {
   display: flex;
