@@ -51,6 +51,8 @@
 </template>
 
 <script lang="ts">
+import { SocketModule } from "@/services/socket";
+import { io } from "socket.io-client";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
@@ -68,6 +70,8 @@ export default defineComponent({
   methods: {
     async logout() {
       localStorage.clear();
+      const socket = io();
+      socket.disconnect()
       await this.$router.push({ name: "login" });
     },
   },

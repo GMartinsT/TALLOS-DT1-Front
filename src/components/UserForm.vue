@@ -45,16 +45,11 @@
           v-if="$route.params?.id"
           class="btnForm"
           type="button"
-          @click="editar(), $router.push({ name: 'users' })"
+          @click="editar()"
         >
-          Salvar
+          Editar
         </button>
-        <button
-          v-else
-          class="btnForm"
-          type="button"
-          @click="salvar(), $router.push({ name: 'users' })"
-        >
+        <button v-else class="btnForm" type="button" @click="salvar()">
           Registrar
         </button>
       </div>
@@ -67,6 +62,7 @@ import { ref, type Ref } from "vue";
 import { request } from "@/services/api";
 import userService from "@/services/userService";
 import type User from "@/interface/IUser";
+import router from "@/router";
 
 export default {
   name: "UserForm",
@@ -103,25 +99,22 @@ export default {
 
   methods: {
     async editar() {
-      try {
-        if (
-          this.$route.params?.id &&
-          typeof this.$route.params.id == "string"
-        ) {
-          return await userService.updateUser(this.$route.params.id, this.user);
+      if (this.$route.params?.id && typeof this.$route.params.id == "string") {
+        const response = await userService.updateUser(
+          this.$route.params.id,
+          this.user
+        );
+        if (response) {
+          router.push({ name: "users" });
         }
-        console.log("Att com sucesso");
-      } catch (error) {
-        console.log(error);
       }
+      console.log("Att com sucesso");
     },
 
     async salvar() {
-      try {
-        const response = await userService.createUser(this.user);
-        return response;
-      } catch (error) {
-        alert("Erro ao criar usuário");
+      const response = await userService.createUser(this.user);
+      if (response) {
+        router.push({ name: "users" });
       }
     },
   },

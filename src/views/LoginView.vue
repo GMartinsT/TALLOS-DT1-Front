@@ -70,7 +70,8 @@ export default defineComponent({
         store.commit("setToken", response.data.access_token);
         store.commit("setRole", response.data.role);
         SocketModule.connect();
-        await router.push({ name: "users" });
+        setTimeout(() => {console.log(localStorage); router.push({ name: 'users'})}, 1500)
+        //        SocketModule.static_io.on('connect', () => router.push({ name: "users" }))
       });
     },
   },

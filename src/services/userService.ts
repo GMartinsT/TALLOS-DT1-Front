@@ -27,7 +27,9 @@ export default {
             console.log(`Usuário atualizado com sucesso!`)
             return result
         } catch (error) {
+            alert("Erro ao atualizar o usuário")
             console.log(`Erro ao atualizar usuário, ${error}`)
+            return null
         }
     },
 
