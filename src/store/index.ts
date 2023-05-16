@@ -15,7 +15,8 @@ export default createStore({
         getName: (state) => state.name,
         getRole: (state) => state.role,
         IsAdmin: (state) => state.role === "admin",
-        sessionId: (state)=> state.email
+        sessionId: (state)=> state.email,
+        getToken: (state) => state.token
     },
 
     mutations: {
