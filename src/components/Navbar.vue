@@ -11,7 +11,11 @@
       />
     </a>
     <div class="navbar-nav">
-      <RouterLink class="nav-link active" :to="'/users'" style="text-decoration: none">
+      <RouterLink
+        class="nav-link active"
+        :to="'/users'"
+        style="text-decoration: none"
+      >
         Lista de Funcionários
       </RouterLink>
       <RouterLink

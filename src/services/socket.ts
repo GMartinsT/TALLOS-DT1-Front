@@ -11,7 +11,7 @@ export class SocketModule {
     this.io = io(uri);
     SocketModule.static_io = this.io;
   }
-  
+
   public static connect() {
     console.log('ANTES!!!')
     if (SocketModule.instance) return SocketModule.instance;
@@ -24,7 +24,7 @@ export class SocketModule {
     SocketModule.static_io.disconnect()
     console.log('ENTROU!!!')
   }
-  
+
   public registerListener(
     namespace: string,
     event: string,

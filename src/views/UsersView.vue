@@ -34,7 +34,7 @@
           <div v-else>
             <i
               class="fa-solid fa-user-pen"
-              style="cursor: not-allowed; color: #1e3050;"
+              style="cursor: not-allowed; color: #1e3050"
             ></i>
           </div>
 
@@ -80,15 +80,15 @@ export default defineComponent({
     },
     deleteUser(id?: any) {
       if (!id) {
-        const toast = useToast()
+        const toast = useToast();
 
-            toast.error('Usuário inválido', {
-                position: POSITION.TOP_RIGHT,
-                timeout: 2000
-            })
+        toast.error("Usuário inválido", {
+          position: POSITION.TOP_RIGHT,
+          timeout: 2000,
+        });
       }
       //const toast = useToast()
-//
+      //
       //      toast.success('Usuário deletado com sucesso', {
       //          position: POSITION.TOP_RIGHT,
       //          timeout: 2000

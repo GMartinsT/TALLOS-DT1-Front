@@ -4,7 +4,7 @@ import CreateUserViewVue from '@/views/CreateUserView.vue';
 import UpdateUserViewVue from '@/views/UpdateUserView.vue';
 import UsersViewVue from '@/views/UsersView.vue';
 
-const authGuard = () => (to: RouteLocation, from: RouteLocation, next:NavigationGuardNext) => {
+const authGuard = () => (to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) => {
   if (localStorage.getItem("token") || "") {
     next();
   } else {

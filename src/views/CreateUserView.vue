@@ -21,7 +21,7 @@ export default defineComponent({
 
 <style>
 navbar {
-    width: 100%;
+  width: 100%;
 }
 .register {
   display: flex;
