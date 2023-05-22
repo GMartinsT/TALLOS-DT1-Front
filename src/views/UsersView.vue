@@ -57,6 +57,7 @@ import type User from "@/interface/IUser";
 import UserService from "@/services/userService";
 import { SocketModule } from "@/services/socket";
 import Navbar from "@/components/Navbar.vue";
+import { POSITION, useToast } from "vue-toastification";
 
 export default defineComponent({
   name: "Users",
@@ -79,9 +80,19 @@ export default defineComponent({
     },
     deleteUser(id?: any) {
       if (!id) {
-        alert("User inválido");
+        const toast = useToast()
+
+            toast.error('Usuário inválido', {
+                position: POSITION.TOP_RIGHT,
+                timeout: 2000
+            })
       }
-      alert("Usuário deletado com sucesso");
+      //const toast = useToast()
+//
+      //      toast.success('Usuário deletado com sucesso', {
+      //          position: POSITION.TOP_RIGHT,
+      //          timeout: 2000
+      //      })
       this.$router.push({ name: "users" });
       return UserService.deleteUser(id);
     },

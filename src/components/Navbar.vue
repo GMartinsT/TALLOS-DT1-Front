@@ -11,16 +11,17 @@
       />
     </a>
     <div class="navbar-nav">
-      <a class="nav-link active" aria-current="page" href="/users"
-        >Lista de Funcionários</a
-      >
-      <a
+      <RouterLink class="nav-link active" :to="'/users'" style="text-decoration: none">
+        Lista de Funcionários
+      </RouterLink>
+      <RouterLink
         class="registerLink"
         v-if="user.role === 'admin'"
-        href="/register"
+        :to="`/register`"
         style="text-decoration: none"
-        >Registrar</a
       >
+        Registrar
+      </RouterLink>
     </div>
     <div>
       <div class="btn-group">
@@ -70,8 +71,9 @@ export default defineComponent({
   methods: {
     async logout() {
       localStorage.clear();
-      const socket = io();
-      socket.disconnect()
+      //const socket = io();
+      //socket.disconnect();
+      SocketModule.disconnect();
       await this.$router.push({ name: "login" });
     },
   },
@@ -100,7 +102,7 @@ export default defineComponent({
   padding: 1rem;
   border-radius: 15px;
   background-color: #001f3f;
-  color: #FFFFFF;
+  color: #ffffff;
   width: 300px;
 }
 .nav-link {
@@ -109,7 +111,7 @@ export default defineComponent({
 }
 .btn {
   background-color: #0d61b5 !important;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 .navbar {
   background-color: #001f3f;
@@ -117,8 +119,9 @@ export default defineComponent({
 .navbar-nav .registerLink {
   color: #ffffff;
   text-decoration: none;
-  border-left: 3px solid #FFFFFF;
+  border-left: 3px solid #ffffff;
   padding-left: 15px;
   font-size: 1.3rem;
+  padding-top: 3px;
 }
 </style>

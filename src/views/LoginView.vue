@@ -57,7 +57,7 @@ export default defineComponent({
   methods: {
     login() {
       authService.login(this.userLogin).then(async (response: any) => {
-        console.log(response)
+        console.log(response);
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("sessionId", response.data.email);
         localStorage.setItem("role", response.data.role);
@@ -70,9 +70,7 @@ export default defineComponent({
         store.commit("setToken", response.data.access_token);
         store.commit("setRole", response.data.role);
         SocketModule.connect();
-        //setTimeout(() => {console.log(localStorage); router.push({ name: 'users'})}, 1500)
-        //        SocketModule.static_io.on('connect', () => router.push({ name: "users" }))
-        router.push({ name: "users" })
+        await router.push({ name: "users" });
       });
     },
   },
@@ -98,7 +96,7 @@ export default defineComponent({
 .btn {
   margin-top: 15px;
   background-color: #001f3f !important;
-  color: #FFFFFF;
+  color: #ffffff;
   border-color: black;
 }
 .btn:hover {
@@ -126,8 +124,8 @@ label {
   color: #ffffff;
 }
 .logoLogin {
-    margin-left: 3%;
-    filter: invert(100%);
+  margin-left: 3%;
+  filter: invert(100%);
 }
 .form-control {
   border: 1px solid black;

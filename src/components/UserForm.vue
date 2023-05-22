@@ -31,6 +31,7 @@
           v-model="user.password"
           id="password"
           placeholder="Senha do usuário"
+          :required="!$route.params?.id"
         />
       </div>
       <div class="select">
@@ -91,7 +92,6 @@ export default {
         },
         (error) => {
           console.log(error);
-          alert("Erro ao criar usuario");
         }
       );
     }
